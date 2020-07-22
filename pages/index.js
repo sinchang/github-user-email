@@ -12,15 +12,15 @@ export default function Home() {
           const event = events[i]
 
           if (event.type === 'PushEvent') {
-            const { commits } = event.payload
+            const { payload: { commits }, actor: { login } } = event
 
             for (let j = 0; j < commits.length; j++) {
               const commit = commits[j]
               const {
-                author: { name, email },
+                author: { email },
               } = commit
 
-              if (name.toLowerCase() === userName.toLowerCase()) {
+              if (login.toLowerCase() === userName.toLowerCase()) {
                 setUserEmail(email)
                 break
               }
