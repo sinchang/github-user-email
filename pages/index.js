@@ -12,7 +12,10 @@ export default function Home() {
           const event = events[i]
 
           if (event.type === 'PushEvent') {
-            const { payload: { commits }, actor: { login } } = event
+            const {
+              payload: { commits },
+              actor: { login },
+            } = event
 
             for (let j = 0; j < commits.length; j++) {
               const commit = commits[j]
@@ -20,7 +23,13 @@ export default function Home() {
                 author: { email },
               } = commit
 
-              if (login.toLowerCase() === userName.toLowerCase()) {
+              const isGithubOfficalEmail =
+                email.indexOf('noreply.github.com') > -1
+
+              if (
+                login.toLowerCase() === userName.toLowerCase() &&
+                !isGithubOfficalEmail
+              ) {
                 setUserEmail(email)
                 break
               }
